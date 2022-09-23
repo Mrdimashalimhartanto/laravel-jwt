@@ -1,8 +1,10 @@
 <?php
 
+use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\Logs;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -17,9 +19,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
 
 
 // API REGISTER & LOGIN
@@ -29,10 +28,14 @@ Route::group([
     'prefix' => 'auth'
 ], function ($router) {
 
-    Route::post('register', 'App\Http\Controllers\AuthController@register');
-    Route::post('login', 'App\Http\Controllers\AuthController@login');
-    Route::post('logout', 'App\Http\Controllers\AuthController@logout');
-    Route::post('refresh', 'App\Http\Controllers\AuthController@refresh');
-    Route::get('user-profile', 'App\Http\Controllers\AuthController@userProfile');
+    Route::post('register', [AuthController::class, 'register']);
+    Route::post('login', [AuthController::class, 'login']);
+    Route::post('logout', [AuthController::class, 'logout']);
+    Route::post('refresh', [AuthController::class, 'refresh']);
+    Route::get('userbroker', [AuthController::class, 'userbroker']);
+    
 
+    // API DARI DATABASE
+    Route::apiResource('articles', ArticleController::class);
+    Route::apiResource('logs', Logs::class);
 });
