@@ -5,9 +5,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class ArticleComment extends Model
+class ViewTransactionCharge extends Model
 {
     use HasFactory;
 
-    protected $guarded = [];
+    protected $table = 'v_get_list_trans_charge';
 }

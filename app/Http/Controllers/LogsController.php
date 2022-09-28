@@ -2,19 +2,21 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Logs;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 
-class ArticleController extends Controller
+class LogsController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-        //
+    public function get_all_logs()
+    {   
+        return response()->json(Logs::all(), 200);
     }
 
     /**
@@ -25,10 +27,14 @@ class ArticleController extends Controller
      */
     public function store(Request $request)
     {
-
         $validator = Validator::make(request()->all(), [
             'title' => 'required',
-            'body' => 'required'
+            'order_id' => 'required',
+            'no_polis' => 'required',
+            'action' => 'required',
+            'type' => 'required',
+            'response' => 'required',
+            'message' => 'required'
         ]);
 
         if ($validator->fails()) {
@@ -37,18 +43,22 @@ class ArticleController extends Controller
 
         $user = auth()->user();
 
-        $article = $user->articles()->create([
+        $logs = $user->logs()->create([
             'title' => $request->title,
-            'body' => $request->body
+            'order_id' => $request->orderid,
+            'no_polis' => $request->nopolis,
+            'action' => $request->action,
+            'type' => $request->type,
+            'response' => $request->response,
+            'message' => $request->message
         ]);
 
         return response()->json([
             'success' => true,
             'message' => 'Article berhasil di tambahkan',
-            'body' => $article
+            'body' => $logs
         ]);
-
-    }
+    }   
 
     /**
      * Display the specified resource.

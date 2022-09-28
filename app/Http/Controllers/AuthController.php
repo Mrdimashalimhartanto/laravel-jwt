@@ -50,6 +50,7 @@ class AuthController extends Controller
             'name' => 'required|string|between:2,100',
             'username' => 'required|string|unique:users,username',
             'email' => 'required|string|email|max:100|unique:users',
+            'phone' => 'required|string|unique:users',
             'password' => 'required|string'
         ]);
 
@@ -61,6 +62,7 @@ class AuthController extends Controller
             'name' => $request->get('name'),
             'username' => $request->get('username'),
             'email' => $request->get('email'),
+            'phone' => $request->get('phone'),
             'password' => Hash::make($request->get('password')),
         ]);
 
@@ -107,7 +109,7 @@ class AuthController extends Controller
          * @return \Illuminate\Http\JsonResponse
          */
 
-        public function userProfile() {
+        public function me() {
             return response()->json(auth()->user());
         }
 

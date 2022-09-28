@@ -9,5 +9,7 @@ class Logs extends Model
 {
     use HasFactory;
 
-    protected $guarded = [];
+    // RELASI ANTARA TABLE 
+    protected $table = 'logs';
+
 }
