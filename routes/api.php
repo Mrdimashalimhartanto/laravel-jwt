@@ -11,6 +11,7 @@ use App\Http\Controllers\PostController;
 use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\TransactionListController;
 use App\Http\Controllers\TrlistController;
+use App\Http\Controllers\ViewTransaction;
 use App\Http\Controllers\ViewTransactionChargeController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -45,4 +46,7 @@ Route::group([
     Route::get('logs', [LogsController::class, 'get_all_logs']);
     Route::get('v_get_list_trans_charge', [ViewTransactionChargeController::class, 'get_all_view_transaction']);
     Route::get('get_all_transaction_list', [TransactionListController::class, 'get_all_transaction_list']);
+    Route::get('get_all_view_transaction', [ViewTransaction::class, 'get_all_view_transaction']);
+
+
 });
