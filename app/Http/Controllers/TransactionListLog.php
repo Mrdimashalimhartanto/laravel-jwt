@@ -14,7 +14,7 @@ class TransactionListLog extends Controller
      */
     public function tr_list_logs()
     {
-        return response()->json(ModelsTransactionListLog::all());
+        return response()->json(ModelsTransactionListLog::all(), 200);
     }
 
     /**

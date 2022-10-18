@@ -3,9 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use Tymon\JWTAuth\JWTAuth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Tymon\JWTAuth\Exceptions\JWTException;
+use Symfony\Component\HttpFoundation\Response;
 
 class AuthController extends Controller
 {
@@ -66,11 +69,6 @@ class AuthController extends Controller
             'password' => Hash::make($request->get('password')),
         ]);
 
-        // $user = User::create(array_merge(
-        //     $validator->validated(),
-        //     ['password' => bcrypt($request->password)]
-        // ));
-
         return response()->json([
             'message' => 'User successfully registered',
             'user' => $user
@@ -85,12 +83,12 @@ class AuthController extends Controller
        * @return \Illuminate\Http\JsonResponse
        */
 
-       public function logout()
-       {
-            auth()->logout();
+      public function logout()
+      {
+        auth()->logout();
 
-            return response()->json(['message' => 'User successfully signed out']);
-       }
+        return response()->json(['message' => 'User berhasil logout']);
+      }
 
        /**
         * Refresh a token.

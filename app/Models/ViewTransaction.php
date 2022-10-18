@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class ViewTransaction extends Model
 {
     use HasFactory;
-
-
+    
     protected $table = 'v_trans';
+
 }

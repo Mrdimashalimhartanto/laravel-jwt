@@ -18,11 +18,11 @@
         <tbody>
             @foreach ($response as $data)
             <tr>
+                <td>{{$data['id']}}</td>
                 <td>{{$data['title']}}</td>
-                <td>{{$data['order_id']}}</td>
-                <td>{{$data['no_polis']}}</td>
+                <td>{{$data['body']}}</td>
                 <td>
-                    <a href="{{ route('post.edit', $data['id'])}}">Edit</a>
+                    <a href="#">Edit</a>
                 </td>
               </tr>
             @endforeach

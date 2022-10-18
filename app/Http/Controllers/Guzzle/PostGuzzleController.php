@@ -21,12 +21,23 @@ class PostGuzzleController extends Controller
     //       return $response;
     //     }
 
+    // public function index()
+    // {
+    //    $response = Http::get("https://jsonplaceholder.typicode.com/posts")->json();
+    //     return view('posts', compact('response'));
+    // }
+
+    
     public function index()
     {
-       $response = Http::get("https://jsonplaceholder.typicode.com/posts")->json();
-        return view('posts', compact('response'));
-    }
+        $client = new \GuzzleHttp\Client();
+        $request = $client->get('https://jsonplaceholder.typicode.com/posts');
+        $response = $request->getBody()->getContents();
+        return $response;
+        // dd($response);
 
+        // return view('posts');
+    }
 
  
 }
