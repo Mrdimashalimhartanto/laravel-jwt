@@ -56,20 +56,4 @@ class ViewTransactionChargeController extends Controller
 
         return ResponseAci::SuccessList($count, $result, 'Success');
     }
-
-    
-    // FUNCTION UNTUK MENAMPILKAN DETAIL TRANSACTION 
-    public function showdetailtransaction($order_id)
-    {
-        try {
-            $detailOrder = ViewTransaction::where('order_id', $order_id)->first();
-            if ($detailOrder != null) {
-                return response()->json(array('status' => true, 'Detail order berhasil ditampilkan' => $detailOrder), 200);
-            } else {
-                return response()->json(array('message' => 'Detail Order gagal ditampilkan'), 400);
-            }
-        } catch (\Exception $e) {
-            return response()->json(array('message' => 'gagal menampilkan detail transaction'), 500);
-        }
-    }
 }

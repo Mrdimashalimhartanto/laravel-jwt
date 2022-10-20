@@ -5,9 +5,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class TransactionListLog extends Model
+class ViewCmsLogs extends Model
 {
     use HasFactory;
-
-    protected $table = 'tr_list_log';
+    
+    protected $table = 'v_cms_logs';
 }

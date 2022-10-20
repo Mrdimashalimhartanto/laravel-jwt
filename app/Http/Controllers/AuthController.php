@@ -5,10 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Tymon\JWTAuth\JWTAuth;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
-use Tymon\JWTAuth\Exceptions\JWTException;
-use Symfony\Component\HttpFoundation\Response;
 
 class AuthController extends Controller
 {
@@ -23,23 +22,35 @@ class AuthController extends Controller
      * @return \Illuminate\Http\JsonResponse
      */
 
-     public function login(Request $request)
-     {
-        $validator = Validator::make($request->all(), [
-            'email' => 'required|email',
-            'password' => 'required|string',
+    public function login(Request $request)
+    {
+       $validator = Validator::make($request->all(), [
+           'email' => 'required|email',
+           'password' => 'required|string',
+       ]);
+
+       if ($validator->fails()) {
+           return response()->json($validator->errors(), 422);
+       }
+
+       if (! $token = auth()->attempt($validator->validate())) {
+           return response()->json(['error' => 'Either email or password is wrong'], 401);
+       }
+
+       return $this->createNewToken($token);
+    }
+
+    protected function createNewToken($token)
+    {   
+        return response()->json([
+            'message' => 'Hore kamu berhasil login, Selamat datang di CMS EPAY - ASURANSI CIPUTRA INDONESIA',
+            'access_token' => $token,
+            'token_type' => 'bearer',
+            'masa berlaku token sampai' => auth()->factory()->getTTL() * 60,
+            'user' => auth()->user()
         ]);
+    }
 
-        if ($validator->fails()) {
-            return response()->json($validator->errors(), 422);
-        }
-
-        if (! $token = auth()->attempt($validator->validate())) {
-            return response()->json(['error' => 'Either email or password is wrong'], 401);
-        }
-
-        return $this->createNewToken($token);
-     }
      
      /**
       * Register a user.
@@ -49,6 +60,7 @@ class AuthController extends Controller
 
       public function register(Request $request)
       {
+
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|between:2,100',
             'username' => 'required|string|unique:users,username',
@@ -70,8 +82,9 @@ class AuthController extends Controller
         ]);
 
         return response()->json([
-            'message' => 'User successfully registered',
-            'user' => $user
+            'status' => 'Success',
+            'message' => 'Hallo, selamat datang! kamu berhasil melakukan registrasi. silahkan login',
+            'user' => $user,
         ], 201);
 
       }
@@ -85,9 +98,11 @@ class AuthController extends Controller
 
       public function logout()
       {
-        auth()->logout();
-
-        return response()->json(['message' => 'User berhasil logout']);
+        Auth::logout();
+        return response()->json([
+            'status' => 'success',
+            'message' => 'User Successfully logout'
+        ]);
       }
 
        /**
@@ -96,10 +111,21 @@ class AuthController extends Controller
         * @return \Illuminate\Http\JsonResponse
         */
 
+        // REFRESH TOKEN USER
         public function refresh()
         {
-            return $this->createNewToken(auth()->refresh());
+            return response()->json([
+                'status' => 'success',
+                'user' => Auth::user(),
+                'Authorization' => [
+                    'access_token' => Auth::refresh(),
+                    'type' => 'Bearer',
+                ],
+            ]);
         }
+
+
+
 
          /**
          * Get the authenticated User.
@@ -107,17 +133,8 @@ class AuthController extends Controller
          * @return \Illuminate\Http\JsonResponse
          */
 
-        public function me() {
+        public function get_user_by_token() {
             return response()->json(auth()->user());
         }
 
-        protected function createNewToken($token)
-        {   
-            return response()->json([
-                'access_token' => $token,
-                'token_type' => 'bearer',
-                'expires_in' => auth()->factory()->getTTL() * 60,
-                'user' => auth()->user()
-            ]);
-        }
 }

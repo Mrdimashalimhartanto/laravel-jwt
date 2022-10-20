@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\TransactionListLog as ModelsTransactionListLog;
+use App\Models\Transactionlog;
 use Illuminate\Http\Request;
 
 class TransactionListLog extends Controller
@@ -12,9 +12,9 @@ class TransactionListLog extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function tr_list_logs()
+    public function get_all_tr_list_logs()
     {
-        return response()->json(ModelsTransactionListLog::all(), 200);
+        return response()->json(Transactionlog::all(), 200);
     }
 
     /**
