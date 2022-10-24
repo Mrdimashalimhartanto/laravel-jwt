@@ -13,7 +13,7 @@ class DetailViewTransactionController extends Controller
         try {
             $detailviewtransaction = Transactionview::where('order_id', $orderId)->first();
             if ($detailviewtransaction != null) {
-                return response()->json(array('status' => true, 'Detail view transaction berhasil di tampilkan' => $detailviewtransaction), 200);
+                return response()->json(array('status' => true, 'data' => $detailviewtransaction), 200);
             } else {
                 return response()->json(array('message' => 'Detail view transaction gagal ditampilkan'), 400);
             }

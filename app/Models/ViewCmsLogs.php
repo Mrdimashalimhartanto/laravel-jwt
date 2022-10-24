@@ -9,5 +9,5 @@ class ViewCmsLogs extends Model
 {
     use HasFactory;
     
-    protected $table = 'v_cms_logs';
+    protected $table = 'logs';
 }

@@ -6,6 +6,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Validator;
 
 class AuthUserController extends Controller
@@ -29,7 +30,7 @@ class AuthUserController extends Controller
 
         if (!($token = auth()->attempt($validator->validate()))) {
             return response()->json(
-                ['error' => 'Either email or password is wrong'],
+                ['error' => 'Oops email and password is wrong'],
                 401
             );
         }

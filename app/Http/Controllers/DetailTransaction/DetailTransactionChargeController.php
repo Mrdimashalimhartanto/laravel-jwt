@@ -13,7 +13,7 @@ class DetailTransactionChargeController extends Controller
         try {
             $detailtransactioncharge = ViewTransactionCharge::where('order_id', $order_id)->first();
             if ($detailtransactioncharge != null) {
-                return response()->json(array('status' => true, 'Detail transaction charge berhasil di tampilkan' => $detailtransactioncharge), 200);
+                return response()->json(array('status' => true, 'data' => $detailtransactioncharge), 200);
             } else {
                 return response()->json(array('message' => 'Detail transaction charge gagal di tampilkan'), 400);
             }

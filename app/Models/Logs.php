@@ -9,7 +9,6 @@ class Logs extends Model
 {
     use HasFactory;
 
-    // REPRESENTASI DATA DARI TABLE MASING MASING SESUAI DARI DATABASE 
     protected $table = 'logs';
 
 }

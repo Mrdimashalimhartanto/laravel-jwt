@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Guzzle\PostGuzzleController;
+use App\Http\Controllers\Web\ResponseAuthController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -18,5 +19,3 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-
-Route::get('posts', [PostGuzzleController::class, 'index']);

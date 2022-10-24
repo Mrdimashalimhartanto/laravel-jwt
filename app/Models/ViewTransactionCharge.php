@@ -10,6 +10,4 @@ class ViewTransactionCharge extends Model
     use HasFactory;
 
     protected $table = 'v_cms_get_list_trans_charge';
-
-
 }

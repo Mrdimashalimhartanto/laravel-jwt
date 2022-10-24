@@ -45,7 +45,7 @@ class ViewTransactionChargeController extends Controller
         $data = ViewTransactionCharge::where('broker_id', 1);
 
         if (!empty($request->sortby)) {
-            $data->orderBy($request->sortby, (($request->sortdesc == true) ? 'desc' : 'asc'));
+            $data->orderBy($request->sortby, (($request->sortdesc == true) ? 'asc' : 'desc'));
         }
 
         // $data = $this->filterBy($data, $request);
@@ -56,4 +56,18 @@ class ViewTransactionChargeController extends Controller
 
         return ResponseAci::SuccessList($count, $result, 'Success');
     }
+
+    // public function show_transaction_charge_by_id($order_id)
+    // {
+    //     try {
+    //         $detailtransactioncharge = ViewTransactionCharge::where('order_id', $order_id)->first();
+    //         if ($detailtransactioncharge != null) {
+    //             return response()->json(array('status' => true, 'data' => $detailtransactioncharge), 200);
+    //         } else {
+    //             return response()->json(array('message' => 'Detail transaction charge gagal di tampilkan'), 400);
+    //         }
+    //     } catch (\Exception $e) {
+    //         return response()->json(array('message' => 'Gagal menampilkan detail transaction charge'), 500);
+    //     }
+    // }
 }
