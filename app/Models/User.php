@@ -64,7 +64,7 @@ class User extends Authenticatable implements JWTSubject
         return [];
     }
 
-    // PUBLIC FUNCTION
+    // function relasi untuk antar 
    
     public function transactions()
     {
